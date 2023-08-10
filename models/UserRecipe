@@ -6,7 +6,7 @@ const sequelize = require("../config/connection");
  *
  * id(primary) - int,
  * user_id - int,
- * recipe_id - int
+ * recipe_id - int  
  * 
  * showcases many to many relationship between user and recipe
  */
