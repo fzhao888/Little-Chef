@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS lilchef_db;
+CREATE DATABASE lilchef_db;
