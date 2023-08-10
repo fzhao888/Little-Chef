@@ -6,7 +6,7 @@ class Ingredient extends Model {}
 /**
  * Schema for Ingredient Table
  * id (primary)
- * name - string
+ * name - string 
  * quantity - string  
  * unit -  string
  * 
