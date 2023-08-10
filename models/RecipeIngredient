@@ -9,7 +9,7 @@ class RecipeIngredient extends Model {}
  * recipe_id references recipe(id)
  * ingredient_id references ingredient(id)
  *
- * 
+ *  
  * recipe_ingredient showcases many to many relationship between recipe and ingredient
  */
 RecipeIngredient.init(
