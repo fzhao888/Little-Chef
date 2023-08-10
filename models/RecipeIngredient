@@ -5,9 +5,9 @@ class RecipeIngredient extends Model {}
 
 /**
  * Schema for recipe_ingredient:
- * id (Primary)
- * recipe_id references recipe(id)
- * ingredient_id references ingredient(id)
+ * id (Primary) - int
+ * recipe_id references recipe(id) - int
+ * ingredient_id references ingredient(id) - int
  *
  *  
  * recipe_ingredient showcases many to many relationship between recipe and ingredient

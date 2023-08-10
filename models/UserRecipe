@@ -5,8 +5,9 @@ const sequelize = require("../config/connection");
  * Schema for user_recipe:
  *
  * id(primary) - int,
- * user_id - int,
- * recipe_id - int  
+ * user_id references user(id) - int
+ * recipe_id references recipe(id) - int
+
  * 
  * showcases many to many relationship between user and recipe
  */
