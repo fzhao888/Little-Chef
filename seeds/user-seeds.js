@@ -9,3 +9,7 @@ const userData = [
         password: 'epinedo3'
     }
 ]
+
+const seedUsers = () => User.bulkCreate(userData);
+
+module.exports = seedUsers;
