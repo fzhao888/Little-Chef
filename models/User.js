@@ -1,4 +1,4 @@
-const { Model, DataTypes } = require("sequelize");
+const { Model, DataTypes, Sequelize } = require("sequelize");
 const bcrypt = require("bcrypt");
 const sequelize = require("../config/connection");
 
@@ -58,7 +58,7 @@ User.init(
       validate: {
         len: [8],
       },
-    },
+    }
   },
   {
     hooks: {

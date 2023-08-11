@@ -4,40 +4,39 @@ const UserRecipe = require('./UserRecipe');
 const Ingredient = require('./Ingredient');
 const RecipeIngredient = require('./RecipeIngredient');
 const Post = require('./Post');
-const User = require('./User');
 
 
-User.belongToMany(Recipe, {
+User.belongsToMany(Recipe, {
     through: {
         model: UserRecipe
     }
 });
 
-Recipe.belongToMany(User, {
+Recipe.belongsToMany(User, {
     through: {
         model: UserRecipe
     }
 });
 
-Ingredient.belongToMany(Recipe,{
+Ingredient.belongsToMany(Recipe,{
     through: {
         model: RecipeIngredient
     }
 });
 
-Recipe.belongToMany(Ingredient, {
+Recipe.belongsToMany(Ingredient, {
     through: {
         model: RecipeIngredient
     }
 });
 
-User.hasOne(Post, {
-    foreign_key: 'user_id',
-    onDelete: 'CASCASDE'
-});
+User.hasMany(Post, {
+    foreign_key: 'reviewer_id',
+    onDelete: 'CASCADE'
+ });
 
-Post.belongTo(User, {
-    foreign_key: 'user_id'
+Post.belongsTo(User, {
+    foreign_key: 'reviewer_id'
 });
 
 
@@ -48,6 +47,5 @@ module.exports = {
     UserRecipe,
     Ingredient,
     RecipeIngredient,
-    Post,
-    User
+    Post
 };

@@ -1,4 +1,4 @@
-const {Model, DataTypes, Sequelize} = require('sequelize');
+const {Model, DataTypes} = require('sequelize');
 const sequelize = require('../config/connection');
 
 class Recipe extends Model{}
@@ -22,12 +22,11 @@ Recipe.init({
         allowNull: false
     },
     instructions: {
-        type: Sequelize.ARRAY (Sequelize.TEXT),
-        defaultValue: [],
+        type:  DataTypes.STRING, 
         allowNull: false
     },
     image: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING, 
     } 
 },
 {
