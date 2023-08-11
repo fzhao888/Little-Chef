@@ -6,7 +6,6 @@ const postData = [
        reviewer_id: 1,
        comments: 'PB & J rox!!!!',
        ratings: 5,
-       date_time: Date.now()
     }
 ]
 
