@@ -1,3 +1,4 @@
+
 const router = require("express").Router();
 const { User, Recipe } = require("../models");
 const withAuth = require("../utils/auth");
@@ -12,11 +13,13 @@ router.get('/', async (req, res) => {
     res.render('homepage', {
         users,
       logged_in: req.session.logged_in,
+
     });
   } catch (err) {
     res.status(500).json(err);
   }
 });
+
 
 // use withAuth middleware to prevent access to route
 router.get('/profile', withAuth, async (req, res) => {
