@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/fzhao888/Little-Chef#readme",
   "dependencies": {
+    "axios": "^1.4.0",
     "bcrypt": "^5.0.0",
     "connect-session-sequelize": "^7.0.4",
     "dotenv": "^8.2.0",
