@@ -3,15 +3,13 @@ const { User, Recipe } = require("../models");
 const withAuth = require("../utils/auth");
 
 // renders homepage
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const userData = await User.findAll({
-      attributes: { exclude: ["password"] },
-      order: [['name', 'ASC']],
+      attributes: { exclude: ["password"] }
     });
-
     const users = userData.map((recipes) => recipes.get({ plain: true }));
-    res.render("homepage", {
+    res.render('homepage', {
         users,
       logged_in: req.session.logged_in,
     });
@@ -21,29 +19,30 @@ router.get("/", async (req, res) => {
 });
 
 // use withAuth middleware to prevent access to route
-router.get("/profile", withAuth, async (req, res) => {
+router.get('/profile', withAuth, async (req, res) => {
   // find logged in user based on session ID then join user info with recipe model
-  const userData = await User.findByPk(req.session.id, {
+  const userData = await User.findByPk(req.session.user_id, {
     attributes: { exclude: ["password"] },
     include: [{ model: Recipe }],
   });
 
+  console.log(userData);
   const user = userData.get({ plain: true });
 
-  res.render("profile", {
+  res.render('profile', {
     ...user,
     logged_in: true,
   });
 });
 
 // checks if logged in
-router.get("/login", (req, res) => {
+router.get('/login', (req, res) => {
   if (req.session.logged_in) {
-    res.redirect("/");
+    res.redirect('/profile');
     return;
   }
 
-  res.render("login");
+  res.render('login');
 });
 
 module.exports = router;
