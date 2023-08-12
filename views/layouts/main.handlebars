@@ -4,12 +4,49 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Little Chef</title>
-  <link rel="stylesheet" href="/css/jass.css">
-  <link rel="stylesheet" href="/css/style.css">
+  <title>Login Page</title>
+  <link rel="stylesheet" href="/css/jass.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <script>
+    function toggleForm(formToShowId, formToHideId) {
+      var formToShow =
+        document.getElementById(formToShowId); var formToHide =
+          document.getElementById(formToHideId); formToShow.style.display = "block";
+      formToHide.style.display = "none";
+    }
+  </script>
 </head>
 
 <body>
+  <header>
+    <h1>LITTLE-CHEF</h1>
+  </header>
+
+  <nav>
+    <!-- Conditionally render login or logout links -->
+    {{#if logged_in}}
+    <a href="/profile">profile</a> |
+    <button class="no-button" id="logout">logout</button>
+    {{else}}
+    <a href="/login">login</a>
+  </nav>
+
+  <main class="container container-fluid mt-5">
+    <!-- Render the sub layout -->
+    {{{ body }}}
+  </main>
+
+  <!-- Footer -->
+  <div class="footer">
+    <a href="#about">About Us</a>
+    |
+    <a href="#contact">Contact</a>
+  </div>
+
+  <!-- Render script for logged in users only -->
+  {{#if logged_in}}
+  <script src="/js/logout.js"></script>
+  {{/if}}
 </body>
 
 </html>
