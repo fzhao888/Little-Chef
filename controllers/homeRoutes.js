@@ -20,7 +20,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// use withAuth m  iddleware to prevent access to route
+// use withAuth middleware to prevent access to route
 router.get("/profile", withAuth, async (req, res) => {
   // find logged in user based on session ID then join user info with recipe model
   const userData = await User.findByPk(req.session.id, {
