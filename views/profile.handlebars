@@ -22,7 +22,7 @@
 
 <!-- Display Ingredients and Delete Ingredient-->
   {{#if ingredients.length}}
-  <div class="col-md-6 ingredients-list'">
+  <div class="col-md-6 ingredients-list">
     <h3>Ingredients: </h3>
 
     {{#each ingredients as |ingredient|}}
@@ -31,7 +31,7 @@
         <h4><a href="/ingredient/{{ingredient.id}}">{{ingredient.name}}</a></h4>
       </div>
       <div class="col-md-4">
-        <button class="btn btn-sm btn-danger" data-id="{{ingredient.id}}">DELETE</button>
+        <button class="btn btn-sm btn-danger" data-id="{{ingredient.id}}">Delete</button>
       </div>
     </div>
     {{/each}}

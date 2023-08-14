@@ -12,7 +12,6 @@ const newFormHandler = async (event) => {
           'Content-Type': 'application/json',
         },
       });
-  
       if (response.ok) {
         document.location.replace('/profile');
       } else {
@@ -22,9 +21,10 @@ const newFormHandler = async (event) => {
   };
   
   const delButtonHandler = async (event) => {
+    
+    console.log('sssssssssssssssssssssssssssssssssssssssss');
     if (event.target.hasAttribute('data-id')) {
       const id = event.target.getAttribute('data-id');
-  
       const response = await fetch(`/api/ingredients/${id}`, {
         method: 'DELETE',
       });
@@ -43,5 +43,5 @@ const newFormHandler = async (event) => {
   
   document
     .querySelector('.ingredients-list')
-    .addEventListener('click', delButtonHandler);
+    .addEventListener('click', delButtonHandler );
   

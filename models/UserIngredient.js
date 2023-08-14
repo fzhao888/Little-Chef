@@ -1,4 +1,4 @@
-const {} = require('sequelize');
+const {Model, DataTypes} = require('sequelize');
 const sequelize = require('../config/connection');
 
 class UserIngredient extends Model {}
@@ -13,8 +13,7 @@ class UserIngredient extends Model {}
  *
  *  
  * user_ingredient showcases many to many relationship between user and ingredient
- */
-user_id
+ */ 
 UserIngredient.init({
     id: {
         type: DataTypes.INTEGER,
