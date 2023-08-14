@@ -5,8 +5,7 @@ const bcrypt = require("bcrypt");
 class User extends Model {
   // checks if login password is stored hashed password
   checkPassword(loginPw) {
-    return true;
-    //return bcrypt.compareSync(loginPw, this.password);
+    return bcrypt.compareSync(loginPw, this.password);
   }
 }
 

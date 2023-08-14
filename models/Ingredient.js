@@ -23,17 +23,7 @@ Ingredient.init(
         name: {
             type: DataTypes.STRING,
             allowNull: false
-        },
-        quantity: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            defaultValue: 0
-        },
-        unit: {
-            type: DataTypes.STRING,
-            allowNull: false
         }
-
     },
     {
         sequelize,
