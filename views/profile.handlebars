@@ -1,5 +1,42 @@
+<!--Welcome message-->
 <div class="row">
   <div class="col-auto">
     <h2>Welcome, {{first_name}} !</h2>
   </div>
 </div>
+
+<!-- Add Ingredient Form -->
+<div class="row mt-4">
+  <div class="col-md-6">
+    <h3>Enter Ingredients:</h3>
+    <form class="form new-ingredients-list-form">
+      <div class="form-group">
+        <label for="ingredient-name">Ingredient:</label>
+        <input class="form-input" type="text" id="ingredient-name" name="ingredient-name" />
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Add</button>
+      </div>
+    </form>
+  </div>
+
+<!-- Display Ingredients and Delete Ingredient-->
+  {{#if ingredients.length}}
+  <div class="col-md-6 ingredients-list">
+    <h3>Ingredients: </h3>
+
+    {{#each ingredients as |ingredient|}}
+    <div class="row mb-2">
+      <div class="col-md-8">
+        <h4><a href="/ingredient/{{ingredient.id}}">{{ingredient.name}}</a></h4>
+      </div>
+      <div class="col-md-4">
+        <button class="btn btn-sm btn-danger" data-id="{{ingredient.id}}">Delete</button>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+  {{/if}}
+</div>
+
+<script src="./js/profile.js"></script>

@@ -1,21 +1,34 @@
 
 const router = require("express").Router();
-const { User, Recipe } = require("../models");
+const { User, Recipe, Ingredient } = require("../models");
 const withAuth = require("../utils/auth");
 
 // renders homepage
 router.get('/', async (req, res) => {
   try {
-    const userData = await User.findAll({
-      attributes: { exclude: ["password"] }
-    });
-    const users = userData.map((recipes) => recipes.get({ plain: true }));
     res.render('homepage', {
-        users,
       logged_in: req.session.logged_in,
-
     });
   } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// renders ingredient/:id
+router.get('/ingredient/:id' , async( req,res ) => {
+  //renders ingredients info
+  try{
+    const ingredientData = await Ingredient.findByPk(req.params.id);
+
+    const ingredient = ingredientData.get({ plain: true });
+
+    res.render('ingredient', {
+      ...ingredient,
+      logged_in: req.session.logged_in
+    });
+
+
+  } catch(err){
     res.status(500).json(err);
   }
 });
@@ -23,13 +36,14 @@ router.get('/', async (req, res) => {
 
 // use withAuth middleware to prevent access to route
 router.get('/profile', withAuth, async (req, res) => {
-  // find logged in user based on session ID then join user info with recipe model
+  // find logged in user based on session ID then join user info with ingredient model
   const userData = await User.findByPk(req.session.user_id, {
     attributes: { exclude: ["password"] },
-    include: [{ model: Recipe }],
+    include: [{ model: Ingredient }],
   });
  
   const user = userData.get({ plain: true });
+
   res.render('profile', {
     ...user,
     logged_in: true,
