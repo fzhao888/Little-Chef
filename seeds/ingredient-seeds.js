@@ -2,13 +2,16 @@ const { Ingredient } = require('../models');
 
 const ingredientData = [
     {
-        name: 'peanut butter'
+        name: 'peanut butter',
+        user_id: '1'
     },
     {
-        name: 'jelly'
+        name: 'jelly',
+        user_id: '1'
     },
     {
-        name: 'bread'
+        name: 'bread',
+        user_id: '1'
     }
 
 ];
