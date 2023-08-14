@@ -1,10 +1,11 @@
+<!--Welcome message-->
 <div class="row">
   <div class="col-auto">
     <h2>Welcome, {{first_name}} !</h2>
   </div>
 </div>
 
-
+<!-- Add Ingredient Form -->
 <div class="row mt-4">
   <div class="col-md-6">
     <h3>Enter Ingredients:</h3>
@@ -19,6 +20,7 @@
     </form>
   </div>
 
+<!-- Display Ingredients and Delete Ingredient-->
   {{#if ingredients.length}}
   <div class="col-md-6 ingredients-list'">
     <h3>Ingredients: </h3>
