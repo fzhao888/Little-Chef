@@ -52,11 +52,17 @@ router.get('/profile', withAuth, async (req, res) => {
 
 // use withAuth middleware to prevent access to route
 router.get('/recipe', withAuth, async (req,res) => {
-  const recipeData = await Recipe.findByPk(req.session.user_id);
-
-  // const recipes = recipeData.map((recipe) => recipe.get({plain:true }) );
-  res.render("recipe", { 
+  const recipeData = await Recipe.findAll({
+    where: {
+      user_id: req.session.user_id,
+    }
+  }); 
+  
+  const recipes = recipeData.map(
+    (recipe) => recipe.get({plain:true }) );
     
+  res.render("recipe", { 
+    recipes: recipes,
     logged_in: true
   });
 });
