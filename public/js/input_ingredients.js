@@ -12,7 +12,7 @@ const newFormHandler = async (event) => {
       },
     });
     if (response.ok) {
-      document.location.replace("/profile");
+      document.location.replace("/input");
     } else {
       alert("Failed to add ingredient");
     }
@@ -27,7 +27,7 @@ const delButtonHandler = async (event) => {
     });
 
     if (response.ok) {
-      document.location.replace("/profile");
+      document.location.replace("/input");
     } else {
       alert("Failed to delete ingredient");
     }
