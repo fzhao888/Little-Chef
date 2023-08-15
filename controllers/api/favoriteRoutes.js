@@ -4,9 +4,9 @@ const withAuth = require("../../utils/auth");
 
 router.get('/', withAuth, async (req,res) => {
     try{
-        const favoritesData = await Favotire.findAll({
+        const favoritesData = await Favorite.findAll({
             where: {
-                user_id: req.session.id
+                user_id: req.session.user_id
             }, 
             include: [
                 {
@@ -15,10 +15,10 @@ router.get('/', withAuth, async (req,res) => {
             ]
         })
 
-        const favorites = favoritesDataData.map ( (favorite) => favorite.get({ plain: true}) ); 
-
+        const favorites = favoritesData.map ( (favorite) => favorite.get({ plain: true}) ); 
+        
         res.render('favorite', {
-            ...favorites,
+            favorites: favorites,
             logged_in: req.session.logged_in
         } );
     } catch(err){

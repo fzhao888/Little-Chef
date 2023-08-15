@@ -4,8 +4,9 @@
 </div>
 
 {{#if favorites.length}}
-<div class="col-mb-6 recipes-list">
+<div class="col-mb-6 favorites-list">
     {{#each favorites as |favorite|}}
+   
     <div class="row mb-2">
         <div class="col-md-8">
             <img src={{favorite.recipe.image}} alt="image of recipe" width="200" height="200">
