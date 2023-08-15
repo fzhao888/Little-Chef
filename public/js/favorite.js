@@ -1,18 +1,18 @@
-const addButtonHandler = async (event) => { 
+const delButtonHandler = async (event) => { 
     if (event.target.hasAttribute("data-id")) {
       const id = event.target.getAttribute("data-id");
       const response = await fetch(`/api/favorites/${id}`, {
-        method: "POST",
+        method: "DELETE",
       });
   
       if (response.ok) {
-        document.location.replace("/recipe");
+        document.location.replace("/favorite");
       } else {
-        alert("Failed to add favorites");
+        alert("Failed to delete favorites");
       }
     }
   };
   
   document
-  .querySelector("#addFav")
+  .querySelector("#delFav")
   .addEventListener("click", delButtonHandler);

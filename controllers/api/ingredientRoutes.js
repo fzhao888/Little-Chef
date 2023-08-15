@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const { Ingredient, UserIngredient } = require("../../models");
-const withAuth = require("../../utils/auth");
-const { route } = require("./userRoutes");
+const withAuth = require("../../utils/auth"); 
 
 // POST for ingredients using withAuth middleware
 router.post("/", withAuth, async (req, res) => {

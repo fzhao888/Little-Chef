@@ -2,8 +2,8 @@ const User = require('./User');
 const Recipe = require('./Recipe'); 
 const Ingredient = require('./Ingredient');
 const RecipeIngredient = require('./RecipeIngredient');
-const Post = require('./Post');
 const UserIngredient = require('./UserIngredient');
+const Favorite = require('./Favorite');
 
 // User and Recipe have one to many relationship
 User.hasMany(Recipe, {
@@ -12,7 +12,7 @@ User.hasMany(Recipe, {
 });
 
 Recipe.belongsTo(User, {
-    foreign_key: 'user'
+    foreign_key: 'user_id'
 });
 
 // Ingredient and Recipe have many to many relationship
@@ -26,16 +26,6 @@ Recipe.belongsToMany(Ingredient, {
     through: {
         model: RecipeIngredient
     }
-});
-
-// User and Post have one to many relationship
-User.hasMany(Post, {
-    foreign_key: 'reviewer_id',
-    onDelete: 'CASCADE'
- });
-
-Post.belongsTo(User, {
-    foreign_key: 'reviewer_id'
 });
 
 // User and Ingredient have many to many relationship
@@ -52,11 +42,21 @@ Ingredient.belongsToMany(User, {
     }
 });
 
+// User and Favorite have one to many relationship
+User.hasMany(Favorite, {
+    foreign_key: 'user_id',
+    onDelete: 'CASCADE'
+});
+
+Favorite.belongsTo(User, {
+    foreign_key: 'user_id'
+});
+
 module.exports = {
     User,
     Recipe, 
+    Favorite,
     Ingredient,
     UserIngredient,
-    RecipeIngredient,
-    Post
+    RecipeIngredient
 };

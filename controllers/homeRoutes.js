@@ -35,18 +35,18 @@ router.get('/ingredient/:id' , async( req,res ) => {
 
 
 // use withAuth middleware to prevent access to route
-router.get('/profile', withAuth, async (req, res) => {
+router.get('/input', withAuth, async (req, res) => {
   // find logged in user based on session ID then join user info with ingredient model
   const userData = await User.findByPk(req.session.user_id, {
     attributes: { exclude: ["password"] },
     include: [{ model: Ingredient }],
   });
- 
+  
   const user = userData.get({ plain: true });
 
-  res.render('profile', {
+  res.render('input_ingredients', {
     ...user,
-    logged_in: true,
+   logged_in: true,
   });
 });
 
@@ -70,11 +70,25 @@ router.get('/recipe', withAuth, async (req,res) => {
 // checks if logged in
 router.get('/login', (req, res) => {
   if (req.session.logged_in) {
-    res.redirect('/profile');
+    res.redirect('/welcome');
     return;
   }
 
   res.render('login');
+});
+
+// renders welcome page
+router.get('/welcome', async (req,res) => {
+  const userData = await User.findByPk(req.session.user_id, {
+    attributes: { exclude: ["password"] }
+  });
+ 
+  const user = userData.get({ plain: true });
+
+  res.render('welcome', {
+    ...user,
+    logged_in: true,
+  });
 });
 
 // renders signup  
