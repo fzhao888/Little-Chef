@@ -1,5 +1,5 @@
 <!--Display recipes -->
-<div>
+<div class="col">
     <h3>Recipes: </h3>
 </div>
 
@@ -8,16 +8,17 @@
     {{#each recipes as |recipe|}}
     <div class="row mb-2">
         <div class="col-md-8">
-            <img src={{recipe.image}} alt="image of recipe" width="200" height="200"> 
-            <h4><a href={{recipe.URL}}>{{recipe.name}}</a></h4> 
-            
+            <img src={{recipe.image}} alt="image of recipe" width="200" height="200">
+            <h4><a href={{recipe.URL}}>{{recipe.name}}</a></h4>
+        </div>
+        <div class="col-md-4">
+            <button class="btn btn-sm btn-primary" id="addFav" data-id="{{recipe.id}}">
+                Add to Favorites
+            </button>
         </div>
     </div>
     {{/each}}
 </div>
 {{/if}}
-
-
-
 
 <script src="./js/recipe.js"></script>
