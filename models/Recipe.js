@@ -6,7 +6,7 @@ class Recipe extends Model{}
  * Schema for recipe
  * id (primary) - id
  * name - string
- * instructions - string[]
+ * url - string[]
  * image - string
  * 
  *  */
@@ -18,12 +18,10 @@ Recipe.init({
         autoIncrement: true
     },
     name: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: DataTypes.STRING
     },
-    instructions: {
-        type:  DataTypes.STRING, 
-        allowNull: false
+    URL: {
+        type:  DataTypes.STRING
     },
     image: {
         type: DataTypes.STRING, 

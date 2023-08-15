@@ -1,0 +1,25 @@
+<!--Display recipes -->
+<div>
+    <h3>Recipes: </h3>
+</div>
+
+{{#if recipes.length}}
+<div class="col-mb-6 recipes-list">
+    {{#each recipes as |recipe|}}
+    <div class="row mb-2">
+        <div class="col-md-8">
+            <h4><a href="recipe">{{recipe.name}}</a></h4>
+        </div>
+
+        <div class="col-md-4">
+            <button class="btn btn-sm btn-danger" data-id="{{recipe.id}}">Add</button>
+        </div>
+    </div>
+    {{/each}}
+</div>
+{{/if}}
+
+
+
+
+<script src="./js/recipe.js"></script>
