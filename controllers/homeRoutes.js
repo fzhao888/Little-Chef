@@ -50,6 +50,17 @@ router.get('/profile', withAuth, async (req, res) => {
   });
 });
 
+// use withAuth middleware to prevent access to route
+router.get('/recipe', withAuth, async (req,res) => {
+  const recipeData = await Recipe.findByPk(req.session.user_id);
+
+  // const recipes = recipeData.map((recipe) => recipe.get({plain:true }) );
+  res.render("recipe", { 
+    
+    logged_in: true
+  });
+});
+
 // checks if logged in
 router.get('/login', (req, res) => {
   if (req.session.logged_in) {

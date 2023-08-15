@@ -20,13 +20,6 @@
     </form>
   </div>
 
-<!--Find New Recipe button-->
-  <div class="row mt-6">
-    <div class="col-md-6">
-      <a href="/api/recipes" class="btn btn-primary">Find New Recipe</a>
-    </div>
-  </div>
-
   <!-- Display Ingredients and Delete Ingredient-->
   {{#if ingredients.length}}
   <div class="col-md-6 ingredients-list">
@@ -45,5 +38,13 @@
   </div>
   {{/if}}
 </div>
+
+<!--Find New Recipe button-->
+  <div class="row mt-6">
+    <div class="col-md-6 ">
+      <button class="btn btn-primary" id="find-recipes">Find New Recipe</button>
+    </div>
+  </div>
+
 
 <script src="./js/profile.js"></script>
