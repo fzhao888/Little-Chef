@@ -1,39 +1,47 @@
-const {Model, DataTypes} = require('sequelize');
-const sequelize = require('../config/connection');
+const { Model, DataTypes } = require("sequelize");
+const sequelize = require("../config/connection");
 
-class Recipe extends Model{}
+class Recipe extends Model {}
 /**
  * Schema for recipe
  * id (primary) - id
  * name - string
- * url - string[]
+ * url - string
  * image - string
- * 
+ *
  *  */
-Recipe.init({
+Recipe.init(
+  {
     id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        allowNull: false,
-        autoIncrement: true
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      allowNull: false,
+      autoIncrement: true,
     },
     name: {
-        type: DataTypes.STRING
+      type: DataTypes.STRING,
     },
     URL: {
-        type:  DataTypes.STRING
+      type: DataTypes.STRING(500),
     },
     image: {
-        type: DataTypes.STRING, 
-    } 
-},
-{
-    
+      type: DataTypes.STRING(3000),
+    },
+    user_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: "user",
+        key: "id",
+      },
+    },
+  },
+  {
     sequelize,
     timestamps: false,
     freezeTableName: true,
     underscored: true,
     modelName: "recipe",
-});
+  }
+);
 
 module.exports = Recipe;

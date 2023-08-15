@@ -24,8 +24,8 @@ router.post("/", async (req, res) => {
     ],
   });
 
-  const userIngredient =  userData.get({ plain: true });
-  const ingredientJSON = userIngredient.ingredients; 
+  const userIngredient = userData.get({ plain: true });
+  const ingredientJSON = userIngredient.ingredients;
 
   // gets ingredients name
   let ingredients = "";
@@ -36,10 +36,11 @@ router.post("/", async (req, res) => {
 
   ingredients += `${ingredientJSON[ingredientJSON.length - 1].name}`;
 
+  /** put key in env!!! */
   const url = `https://api.edamam.com/api/recipes/v2?type=public&q=${ingredients}&app_id=dd1ea4e2&app_key=%205a310e71d76223de342321873bdac305%09`;
 
-     // gets recipe label, recipe image, and recipe url
-     let recipes = [];
+  // stores recipe label, recipe image, and recipe url
+  let recipes = [];
 
   // fetches recipe info from edamam api
   try {
@@ -47,18 +48,24 @@ router.post("/", async (req, res) => {
     const result = await response.text();
     const json = await JSON.parse(result);
 
-
-    json.hits.forEach((recipe) => {
-      console.log(recipe); 
-      const newRecipe = Recipe.create({
-        name: recipe.label,
-        URL: recipe.url,
-        image: recipe.image,
-      });
+    json.hits.forEach((data) => {
+      // adds recipes into recipe model
+      const newRecipe =  Recipe.create(
+        {
+          name: data.recipe.label,
+          URL: data.recipe.url,
+          image: data.recipe.image,
+          user_id: req.session.user_id
+        },
+        {
+          returning: true,
+        }
+      );
       recipes.push(newRecipe);
+      
     });
   } catch (err) {
-    console.error(err);
+    res.status(500).json(err);
   }
 
   res.status(200).json(recipes);
