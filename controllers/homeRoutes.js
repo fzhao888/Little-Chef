@@ -1,6 +1,6 @@
 
 const router = require("express").Router();
-const { User, Recipe, Ingredient } = require("../models");
+const { User, Recipe, Ingredient, Favorite } = require("../models");
 const withAuth = require("../utils/auth");
 
 // renders homepage
@@ -11,6 +11,31 @@ router.get('/', async (req, res) => {
     });
   } catch (err) {
     res.status(500).json(err);
+  }
+});
+
+router.get("/favorites", withAuth, async (req, res) => {
+  try {
+    const favoritesData = await Favorite.findAll({
+      where: {
+        user_id: req.session.user_id,
+      },
+      include: [
+        {
+          model: Recipe,
+        },
+      ],
+    });
+
+    const favorites = favoritesData.map((favorite) =>
+      favorite.get({ plain: true })
+    ); 
+    res.render("favorite", {
+      favorites: favorites,
+      logged_in: req.session.logged_in,
+    });
+  } catch (err) {
+    res.status(400).json(err);
   }
 });
 

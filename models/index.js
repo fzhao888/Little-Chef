@@ -52,6 +52,16 @@ Favorite.belongsTo(User, {
     foreign_key: 'user_id'
 });
 
+// Recipe and Favorite have one to many relationship
+Recipe.hasMany(Favorite, {
+    foreign_key: 'recipe_id',
+    onDelete: 'CASCADE'
+});
+
+Favorite.belongsTo(Recipe, {
+    foreign_key: 'recipe_id'
+});
+
 module.exports = {
     User,
     Recipe, 

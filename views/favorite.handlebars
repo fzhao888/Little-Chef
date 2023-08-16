@@ -1,10 +1,9 @@
 <!--Display favorites -->
-<div class="col">
-    <h3>Favorites: </h3>
-</div>
 
 {{#if favorites.length}}
-<div class="col-mb-6 recipes-list">
+<div class="col-mb-6 favorites-list">
+    <h3>Favorites: </h3>
+
     {{#each favorites as |favorite|}}
     <div class="row mb-2">
         <div class="col-md-8">
@@ -12,7 +11,7 @@
             <h4><a href={{favorite.recipe.URL}}>{{favorite.recipe.name}}</a></h4>
         </div>
         <div class="col-md-4">
-            <button class="btn btn-sm btn-danger" id="delFav" data-id="{{recipe.id}}" >
+            <button class="btn btn-sm btn-danger" data-id="{{favorite.id}}">
                 Delete
             </button>
         </div>
