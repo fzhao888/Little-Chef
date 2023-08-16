@@ -55,9 +55,6 @@ router.post("/", async (req, res) => {
           URL: data.recipe.url,
           image: data.recipe.image,
           user_id: req.session.user_id
-        },
-        {
-          returning: true,
         }
       );
       recipes.push(newRecipe);
