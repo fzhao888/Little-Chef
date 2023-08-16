@@ -2,6 +2,8 @@
 const router = require("express").Router();
 const { User, Recipe, Ingredient, Favorite } = require("../models");
 const withAuth = require("../utils/auth");
+const Recaptcha = require('express-recaptcha').RecaptchaV3
+const recaptcha = new Recaptcha('6Lfvpa4nAAAAAJLBgZhMIK285PXaOAy54_yXgnjG', '6Lfvpa4nAAAAALnykTBhcaD5BotiB1jviKo_Jk8M', {callback:'cb'}) 
 
 // renders homepage
 router.get('/', async (req, res) => {
@@ -91,14 +93,26 @@ router.get('/recipe', withAuth, async (req,res) => {
 });
 
 // checks if logged in
-router.get('/login', (req, res) => {
+router.get('/login',  recaptcha.middleware.render, function (req, res) {
+  
   if (req.session.logged_in) {
     res.redirect('/welcome');
     return;
   }
 
-  res.render('login');
+  res.render('captcha', { captcha: res.recaptcha });
 });
+
+router.post('/login', recaptcha.middleware.verify, function (req, res) {
+  if (!req.recaptcha.error) {
+      // success code
+     res.render('login')
+  } else {
+      // error code
+      alert('lol u bot ')
+  }
+  
+})
 
 // renders welcome page
 router.get('/welcome', async (req,res) => {
@@ -115,8 +129,19 @@ router.get('/welcome', async (req,res) => {
 });
 
 // renders signup  
-router.get('/signup', (req,res) => {
-  res.render('signup');
-});
+router.get('/signup', recaptcha.middleware.render, (req,res) => { 
+  res.render('captcha',{ captcha: res.recaptcha, path: req.path });
+}); 
+
+router.post('/signup', recaptcha.middleware.verify, function (req, res) {
+  if (!req.recaptcha.error) {
+      // success code
+     res.render('signup')
+  } else {
+      // error code
+      alert('lol u bot ')
+  }
+  
+})
 
 module.exports = router;
