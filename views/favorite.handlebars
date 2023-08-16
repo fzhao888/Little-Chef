@@ -7,8 +7,8 @@
     {{#each favorites as |favorite|}}
     <div class="row mb-2">
         <div class="col-md-8">
-            <img src={{favorite.recipe.image}} alt="image of recipe" width="200" height="200">
-            <h4><a href={{favorite.recipe.URL}}>{{favorite.recipe.name}}</a></h4>
+            <img src={{favorite.image}} alt="image of recipe" width="200" height="200">
+            <h4><a href={{favorite.URL}}>{{favorite.name}}</a></h4>
         </div>
         <div class="col-md-4">
             <button class="btn btn-sm btn-danger" data-id="{{favorite.id}}">

@@ -36,7 +36,6 @@ router.post("/", async (req, res) => {
 
   ingredients += `${ingredientJSON[ingredientJSON.length - 1].name}`;
 
-  /** put key in env!!! */
   const url = `https://api.edamam.com/api/recipes/v2?type=public&q=${ingredients}&app_id=dd1ea4e2&app_key=%205a310e71d76223de342321873bdac305%09`;
 
   // stores recipe label, recipe image, and recipe url
