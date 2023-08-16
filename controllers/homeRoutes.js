@@ -15,26 +15,24 @@ router.get('/', async (req, res) => {
 });
 
 router.get("/favorites", withAuth, async (req, res) => {
-  try {
-    const favoritesData = await Favorite.findAll({
-      where: {
-        user_id: req.session.user_id,
-      },
+  try { 
+    const favoritesData = await User.findByPk(
+      req.session.user_id, {
       include: [
         {
-          model: Recipe,
+          model: Recipe, through: Favorite,  as: 'user_favorites'
         },
-      ],
-    });
-
-    const favorites = favoritesData.map((favorite) =>
-      favorite.get({ plain: true })
+      ]
+    },
     ); 
+    const favorites = favoritesData.get({ plain: true }); 
+
     res.render("favorite", {
-      favorites: favorites,
+      favorites: favorites.user_favorites,
       logged_in: req.session.logged_in,
     });
   } catch (err) {
+    console.log(err)
     res.status(400).json(err);
   }
 });

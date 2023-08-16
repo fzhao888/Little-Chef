@@ -8,7 +8,7 @@ const delButtonHandler = async (event) => {
       if (response.ok) {
        document.location.replace("/favorites");
       } else {
-        alert("Failed to delete favorites");
+        alert("Already added to favorites!");
       }
     }
   };

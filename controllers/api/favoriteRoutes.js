@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Favorite, Recipe } = require("../../models");
+const { Favorite, Recipe, User } = require("../../models");
 const withAuth = require("../../utils/auth");
 
 
@@ -19,18 +19,24 @@ router.post("/:id", withAuth, async (req, res) => {
 
 router.delete("/:id", withAuth, async (req, res) => {
   try {
-    const favoriteData = await Favorite.destroy({
+    const favoriteData = await Recipe.destroy({
       where: {
         id: req.params.id,
       },
+      include: [
+    {
+      model:User, through: Favorite, as: 'favorite_recipes'
+    }
+      ]
     });
-    console.log(favoriteData);
+
     if (!favoriteData) {
       res.status(404).json({ message: "Favorite not found!" });
       return;
     }
     res.status(200).json(favoriteData);
   } catch (err) {
+    console.log(err)
     res.status(500).json(err);
   }
 });

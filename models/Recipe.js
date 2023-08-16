@@ -19,10 +19,13 @@ Recipe.init(
       autoIncrement: true,
     },
     name: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING
     },
     URL: {
       type: DataTypes.STRING(500),
+      validate: {
+        isUrl: true
+      }
     },
     image: {
       type: DataTypes.STRING(3000),
