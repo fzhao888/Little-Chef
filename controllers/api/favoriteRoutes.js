@@ -1,38 +1,38 @@
 const router = require("express").Router();
 const { Favorite, Recipe } = require("../../models");
-const withAuth = require("../../utils/auth"); 
+const withAuth = require("../../utils/auth");
 
-router.get('/', withAuth, async (req,res) => {
-    try{
-        const favoritesData = await Favorite.findAll({
-            where: {
-                user_id: req.session.user_id
-            }, 
-            include: [
-                {
-                    model: Recipe
-                } 
-            ]
-        })
 
-        const favorites = favoritesData.map ( (favorite) => favorite.get({ plain: true}) ); 
-        
-        res.render('favorite', {
-            favorites: favorites,
-            logged_in: req.session.logged_in
-        } );
-    } catch(err){
-        res.status(400).json(err);
+
+router.post("/:id", withAuth, async (req, res) => {
+  try {
+    const newFavorite = await Favorite.create({
+      user_id: req.session.user_id,
+      recipe_id: req.params.id,
+    });
+    
+    res.status(200).json(newFavorite);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.delete("/:id", withAuth, async (req, res) => {
+  try {
+    const favoriteData = await Favorite.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+    console.log(favoriteData);
+    if (!favoriteData) {
+      res.status(404).json({ message: "Favorite not found!" });
+      return;
     }
-});
-
-router.post('/:id', withAuth, async (req,res) => {
-
-});
-
-router.delete('/:id', withAuth, async (req,res) => {
-
+    res.status(200).json(favoriteData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 module.exports = router;
-

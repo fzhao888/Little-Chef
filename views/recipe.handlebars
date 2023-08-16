@@ -2,7 +2,7 @@
 <div class="col">
     <h3>Recipes: </h3>
 </div>
-
+<!-- return to top button-->
 {{#if recipes.length}}
 <div class="col-mb-6 recipes-list">
     {{#each recipes as |recipe|}}
@@ -12,8 +12,8 @@
             <h4><a href={{recipe.URL}}>{{recipe.name}}</a></h4>
         </div>
         <div class="col-md-4">
-            <button class="btn btn-sm btn-primary" id="addFav" data-id="{{recipe.id}}">
-                Add to Favorites
+            <button class="btn btn-sm btn-primary"  data-id="{{recipe.id}}">
+                Add to Favorites 
             </button>
         </div>
     </div>
