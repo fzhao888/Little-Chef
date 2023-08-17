@@ -99,10 +99,11 @@ router.get('/login',  recaptcha.middleware.render, function (req, res) {
     return;
   }
 
-  res.render('captcha', { captcha: res.recaptcha });
+  res.render('captcha', { captcha: res.recaptcha, path: req.path  });
 });
 
 router.post('/login', recaptcha.middleware.verify, function (req, res) {
+  console.log(req.recaptcha);
   if (!req.recaptcha.error) {
       // success code
      res.render('login')
@@ -131,6 +132,7 @@ router.get('/signup', recaptcha.middleware.render, (req,res) => {
 }); 
 
 router.post('/signup', recaptcha.middleware.verify, function (req, res) {
+  console.log(req.recaptcha);
   if (!req.recaptcha.error) {
       // success code
      res.render('signup')
