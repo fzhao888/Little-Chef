@@ -1,12 +1,12 @@
 <!--Display recipes -->
-<div class="col">
+<div class = "mt-5 pt-5">
     <h3>Recipes: </h3>
 </div>
 
 {{#if recipes.length}}
-<div class="col-mb-6 recipes-list">
+<div class=" row col-mb-6 recipes-list 78">
     {{#each recipes as |recipe|}}
-    <div class="row mb-2">
+    <div class="col-3 mb-2">
         <div class="col-md-8">
             <img src={{recipe.image}} alt="image of recipe" width="200" height="200">
             <h4><a href={{recipe.URL}}>{{recipe.name}}</a></h4>
