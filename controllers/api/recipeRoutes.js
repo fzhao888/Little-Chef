@@ -39,7 +39,7 @@ router.post("/", withAuth, async (req, res) => {
   const appID = 'dd1ea4e2';
   const appKey = '5a310e71d76223de342321873bdac305';
   
-  const url = `https://api.edamam.com/api/recipes/v2?type=public&q=${ingredients}&app_id=${appID}&app_key=%20${appKey}%09`;
+  const url = `https://api.edamam.com/api/recipes/v2?type=public&q=${ingredients}&app_id=${appID}&app_key=%20${appKey}`;
 
   // stores recipe label, recipe image, and recipe url
   let recipes = [];
@@ -64,7 +64,11 @@ router.post("/", withAuth, async (req, res) => {
 
    await json.hits.forEach((data) => {
     if(urls.includes(data.recipe.url)) {
-      return;
+       Recipe.destroy({
+        where: {
+          URL: data.recipe.url
+        }
+      });
     }
       // adds recipes into recipe model
         const newRecipe = Recipe.create(
