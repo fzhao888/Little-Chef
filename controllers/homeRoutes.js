@@ -94,7 +94,6 @@ router.get('/recipe', withAuth, async (req,res) => {
 
 // checks if logged in
 router.get('/login',  recaptcha.middleware.render, function (req, res) {
-  
   if (req.session.logged_in) {
     res.redirect('/welcome');
     return;
@@ -107,11 +106,9 @@ router.post('/login', recaptcha.middleware.verify, function (req, res) {
   if (!req.recaptcha.error) {
       // success code
      res.render('login')
-  } else {
-      // error code
-      alert('lol u bot ')
+  } else { 
+      document.location.replace('/login');
   }
-  
 })
 
 // renders welcome page
@@ -138,10 +135,8 @@ router.post('/signup', recaptcha.middleware.verify, function (req, res) {
       // success code
      res.render('signup')
   } else {
-      // error code
-      alert('lol u bot ')
+    document.location.replace('/signup');
   }
-  
 })
 
 module.exports = router;

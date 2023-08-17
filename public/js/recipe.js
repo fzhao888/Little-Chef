@@ -10,12 +10,15 @@ const addButtonHandler = async (event) => {
       },
     });
 
+    const status = document.querySelector('.status-message');
     if (response.ok) {
       // PUT here
-      console.log("added to favorite");
+      status.style.color = 'green';
+      status.innerHTML = "added to favorite";
     } else {
       // display to dom or modal
-      alert("Failed to add favorites");
+      status.style.color = 'red';
+      status.innerHTML = "Failed to add to favorite";
     }
   }
 };

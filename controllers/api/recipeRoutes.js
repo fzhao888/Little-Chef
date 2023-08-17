@@ -4,14 +4,14 @@ const withAuth = require("../../utils/auth");
 const fetch = require("node-fetch");
 
 //  GET  api/recipes
-router.get("/", async (req, res) => {
+router.get("/", withAuth, async (req, res) => {
   res.render("recipe", {
     logged_in: req.session.logged_in,
   });
 });
 
 // POST route for api/recipes
-router.post("/", async (req, res) => {
+router.post("/", withAuth, async (req, res) => {
   // get ingredients id using user id
   const userData = await User.findOne({
     where: {
@@ -36,7 +36,10 @@ router.post("/", async (req, res) => {
 
   ingredients += `${ingredientJSON[ingredientJSON.length - 1].name}`;
 
-  const url = `https://api.edamam.com/api/recipes/v2?type=public&q=${ingredients}&app_id=dd1ea4e2&app_key=%205a310e71d76223de342321873bdac305%09`;
+  const appID = 'dd1ea4e2';
+  const appKey = '5a310e71d76223de342321873bdac305';
+  
+  const url = `https://api.edamam.com/api/recipes/v2?type=public&q=${ingredients}&app_id=${appID}&app_key=%20${appKey}%09`;
 
   // stores recipe label, recipe image, and recipe url
   let recipes = [];
