@@ -19,7 +19,7 @@ body {
     margin-top: 5%;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-image: url('pxfuel.jpg'); /* Path to your background image */
+    background-image: url('../images/pxfuel.jpg'); /* Path to your background image */
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -29,7 +29,7 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-}
+} 
 
 /* Shared styles for login and signup containers */
 .login-container {
@@ -90,7 +90,7 @@ body {
 .footer a:hover {
     text-decoration: underline;
 }
-
+ 
 .top-bar{
     display: flex;
 }
@@ -107,4 +107,4 @@ body {
 #login{
     margin-top: 5%;
 }
- 
+  
