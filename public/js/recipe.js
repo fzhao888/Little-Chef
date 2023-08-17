@@ -23,8 +23,17 @@ const addButtonHandler = async (event) => {
   }
 };
 
+
+const topButtonHandler = async (event) => {  
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+
 document
   .querySelector(".recipes-list")
   .addEventListener("click", addButtonHandler);
 
-   
+document
+  .querySelector("#topBtn")
+  .addEventListener("click", topButtonHandler);
+

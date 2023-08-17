@@ -16,7 +16,7 @@ header h1 {
     font-style: italic;
 }
 body {
-    margin: 0;
+    margin-top: 5%;
     padding: 0;
     font-family: Arial, sans-serif;
     background-image: url('pxfuel.jpg'); /* Path to your background image */
@@ -24,12 +24,12 @@ body {
     background-position: center;
     background-attachment: fixed;
     background-repeat: no-repeat;
-    height: 100vh;
+    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
+}
 
 /* Shared styles for login and signup containers */
 .login-container {
@@ -39,7 +39,7 @@ body {
     width: 300px;
     text-align: center;
     margin: 0 auto;
-    margin-top: 50px;
+    margin-top: 50px; 
 }
 
 .login-container h1 {
@@ -95,9 +95,16 @@ body {
     display: flex;
 }
 
-.recipes{
-    margin-top: 100px;
+.recipes h3{
+    text-align: center;
+    margin-bottom: 5%;
 }
 
-
+#topBtn{
+    align-self: center;
 }
+
+#login{
+    margin-top: 5%;
+}
+ 

@@ -1,26 +1,30 @@
-<div class="recipes">
-    <!--Display recipes -->
-    <div class="col-auto">
-        <h3>Recipes: </h3>
-    </div>
-    <!-- return to top button-->
-    {{#if recipes.length}}
-    <div class="col-mb-6 recipes-list">
-        {{#each recipes as |recipe|}}
-        <div class="row mb-2">
-            <div class="col-md-8">
-                <img src={{recipe.image}} alt="image of recipe" width="200" height="200"/>
-                <h4><a href={{recipe.URL}}>{{recipe.name}}</a></h4>
-            </div>
-            <div class="col-md-4">
-                <button class="btn btn-sm btn-primary" data-id="{{recipe.id}}">
-                    Add to Favorites
-                </button>
-            </div>
+<div class="recipes-page">
+    <div class="recipes">
+        <!--Display recipes -->
+        <div class="col-auto">
+            <h3>Recipes: </h3>
         </div>
-        {{/each}}
+        <!-- return to top button-->
+        {{#if recipes.length}}
+        <div class="col-mb-6 recipes-list">
+            {{#each recipes as |recipe|}}
+            <div class="row mb-2">
+                <div class="col-md-8">
+                    <img src={{recipe.image}} alt="image of recipe" width="200" height="200" />
+                    <h4><a href={{recipe.URL}}>{{recipe.name}}</a></h4>
+                </div>
+                <div class="col-md-4">
+                    <button class="btn btn-sm btn-primary" data-id="{{recipe.id}}">
+                        Add to Favorites
+                    </button>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+        {{/if}}
     </div>
-    {{/if}}
+    <button class="btn btn-sm btn-info" id="topBtn">Go to top</button>
 </div>
+
 
 <script src="./js/recipe.js"></script>
