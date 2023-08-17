@@ -2,7 +2,7 @@ const newFormHandler = async (event) => {
   event.preventDefault();
 
   const name = document.querySelector("#ingredient-name").value.trim();
-
+  
   if (name) {
     const response = await fetch(`/api/ingredients`, {
       method: "POST",
@@ -11,10 +11,11 @@ const newFormHandler = async (event) => {
         "Content-Type": "application/json",
       },
     });
-    if (response.ok) {
-      document.location.replace("/input");
+    if (response.ok) { 
+      document.location.replace("/input"); 
     } else {
-      alert("Failed to add ingredient");
+      const status = document.querySelector('.status-message');
+      status.innerHTML = 'Failed to add ingredient.'
     }
   }
 };
@@ -29,7 +30,9 @@ const delButtonHandler = async (event) => {
     if (response.ok) {
       document.location.replace("/input");
     } else {
-      alert("Failed to delete ingredient");
+      const status = document.querySelector('.status-message');
+      status.style.color = 'red';
+      status.innerHTML = 'Failed to delete ingredient.'
     }
   }
 };
@@ -45,7 +48,9 @@ const findRecipesHandler = async (event) => {
   if (response.ok) {
     document.location.replace("/recipe");
   } else {
-    alert("Failed to show recipe");
+    const status = document.querySelector('.status-message');
+    status.style.color = 'red';
+    status.innerHTML = "Failed to find recipe";
   }
 };
 

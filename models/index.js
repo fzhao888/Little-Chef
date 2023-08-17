@@ -6,13 +6,23 @@ const UserIngredient = require('./UserIngredient');
 const Favorite = require('./Favorite');
 
 // User and Recipe have one to many relationship
-User.hasMany(Recipe, {
+User.belongsToMany(Recipe, {
     foreign_key: 'user_id',
-    onDelete: 'CASCADE'
+    through: {
+        model: Favorite,
+        unique: true
+    },
+    onDelete: 'CASCADE',
+    as: 'user_favorites'
 });
 
-Recipe.belongsTo(User, {
-    foreign_key: 'user_id'
+Recipe.belongsToMany(User, {
+    foreign_key: 'user_id',
+    through: {
+        model: Favorite,
+        unique:true
+    },
+    as: 'favorite_recipes'
 });
 
 // Ingredient and Recipe have many to many relationship
@@ -42,15 +52,6 @@ Ingredient.belongsToMany(User, {
     }
 });
 
-// User and Favorite have one to many relationship
-User.hasMany(Favorite, {
-    foreign_key: 'user_id',
-    onDelete: 'CASCADE'
-});
-
-Favorite.belongsTo(User, {
-    foreign_key: 'user_id'
-});
 
 module.exports = {
     User,

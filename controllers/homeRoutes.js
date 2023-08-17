@@ -1,7 +1,9 @@
 
 const router = require("express").Router();
-const { User, Recipe, Ingredient } = require("../models");
+const { User, Recipe, Ingredient, Favorite } = require("../models");
 const withAuth = require("../utils/auth");
+const Recaptcha = require('express-recaptcha').RecaptchaV3
+const recaptcha = new Recaptcha('6Lfvpa4nAAAAAJLBgZhMIK285PXaOAy54_yXgnjG', '6Lfvpa4nAAAAALnykTBhcaD5BotiB1jviKo_Jk8M', {callback:'cb'}) 
 
 // renders homepage
 router.get('/', async (req, res) => {
@@ -11,6 +13,29 @@ router.get('/', async (req, res) => {
     });
   } catch (err) {
     res.status(500).json(err);
+  }
+});
+
+router.get("/favorites", withAuth, async (req, res) => {
+  try { 
+    const favoritesData = await User.findByPk(
+      req.session.user_id, {
+      include: [
+        {
+          model: Recipe, through: Favorite,  as: 'user_favorites'
+        },
+      ]
+    },
+    ); 
+    const favorites = favoritesData.get({ plain: true }); 
+
+    res.render("favorite", {
+      favorites: favorites.user_favorites,
+      logged_in: req.session.logged_in,
+    });
+  } catch (err) {
+    console.log(err)
+    res.status(400).json(err);
   }
 });
 
@@ -68,14 +93,24 @@ router.get('/recipe', withAuth, async (req,res) => {
 });
 
 // checks if logged in
-router.get('/login', (req, res) => {
+router.get('/login',  recaptcha.middleware.render, function (req, res) {
   if (req.session.logged_in) {
     res.redirect('/welcome');
     return;
   }
 
-  res.render('login');
+  res.render('captcha', { captcha: res.recaptcha, path: req.path  });
 });
+
+router.post('/login', recaptcha.middleware.verify, function (req, res) {
+  console.log(req.recaptcha);
+  if (!req.recaptcha.error) {
+      // success code
+     res.render('login')
+  } else { 
+      document.location.replace('/login');
+  }
+})
 
 // renders welcome page
 router.get('/welcome', async (req,res) => {
@@ -92,8 +127,18 @@ router.get('/welcome', async (req,res) => {
 });
 
 // renders signup  
-router.get('/signup', (req,res) => {
-  res.render('signup');
-});
+router.get('/signup', recaptcha.middleware.render, (req,res) => { 
+  res.render('captcha',{ captcha: res.recaptcha, path: req.path });
+}); 
+
+router.post('/signup', recaptcha.middleware.verify, function (req, res) {
+  console.log(req.recaptcha);
+  if (!req.recaptcha.error) {
+      // success code
+     res.render('signup')
+  } else {
+    document.location.replace('/signup');
+  }
+})
 
 module.exports = router;

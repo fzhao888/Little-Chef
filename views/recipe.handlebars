@@ -1,24 +1,29 @@
-<!--Display recipes -->
-<div class = "mt-5 pt-5">
-    <h3>Recipes: </h3>
-</div>
-
-{{#if recipes.length}}
-<div class=" row col-mb-6 recipes-list 78">
-    {{#each recipes as |recipe|}}
-    <div class="col-3 mb-2">
-        <div class="col-md-8">
-            <img src={{recipe.image}} alt="image of recipe" width="200" height="200">
-            <h4><a href={{recipe.URL}}>{{recipe.name}}</a></h4>
+<div class="recipes-page">
+    <div class="mt-5 pt-5 recipes">
+        <!--Display recipes -->
+        <div class="col-auto">
+            <h3>Recipes: </h3>
         </div>
-        <div class="col-md-4">
-            <button class="btn btn-sm btn-primary" id="addFav" data-id="{{recipe.id}}">
-                Add to Favorites
-            </button>
+        <!-- return to top button-->
+        {{#if recipes.length}}
+        <div class="col-mb-6 recipes-list">
+            {{#each recipes as |recipe|}}
+            <div class="row mb-2">
+                <div class="col-md-8">
+                    <img src={{recipe.image}} alt="image of recipe" width="200" height="200" />
+                    <h4><a href={{recipe.URL}}>{{recipe.name}}</a></h4>
+                </div>
+                <div class="col-md-4">
+                    <button class="btn btn-sm btn-primary" data-id="{{recipe.id}}">
+                        Add to Favorites
+                    </button>
+                </div>
+            </div>
+            {{/each}}
         </div>
+        {{/if}}
     </div>
-    {{/each}}
+    <button class="btn btn-sm btn-info" id="topBtn">Go to top</button>
 </div>
-{{/if}}
 
 <script src="./js/recipe.js"></script>
