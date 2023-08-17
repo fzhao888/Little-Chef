@@ -6,13 +6,3 @@ function cb(token) {
     input.setAttribute('value', token)
     document.getElementsByTagName('form')[0].appendChild(input)
 }
-
-const verifyHandler = (event) => {
-        alert('Success!');
-        const path = document.querySelector('#path').value.trim();
-       // document.location.replace(`/${path}`);
-}
-
-document
-  .querySelector('.captcha-form')
-  .addEventListener('submit', verifyHandler);

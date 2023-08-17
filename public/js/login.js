@@ -6,6 +6,7 @@ const loginFormHandler = async (event) => {
   const username = document.querySelector('#username').value.trim();
   const password = document.querySelector('#password').value.trim();
 
+
   if (username && password) {
     // Send a POST request to the API endpoint
     const response = await fetch('/api/users/login', {
@@ -17,8 +18,10 @@ const loginFormHandler = async (event) => {
     if (response.ok) {
       // If successful, redirect the browser to the profile page
       document.location.replace('/welcome');
-    } else {
-      alert('Incorrect Username or Password.  Please try again!');
+    }else{
+      const status = document.querySelector('.status-message');
+      status.style.color = 'red';
+      status.innerHTML = 'Incorrect password or username please try again!';
     }
   }
 };

@@ -4,12 +4,11 @@ const delButtonHandler = async (event) => {
       const response = await fetch(`/api/favorites/${id}`, {
         method: "DELETE",
       });
+
   
       if (response.ok) {
        document.location.replace("/favorites");
-      } else {
-        alert("Already added to favorites!");
-      }
+      }  
     }
   };
   
