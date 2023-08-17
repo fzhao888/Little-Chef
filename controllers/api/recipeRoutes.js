@@ -46,19 +46,34 @@ router.post("/", async (req, res) => {
     const response = await fetch(url);
     const result = await response.text();
     const json = await JSON.parse(result);
+    const recipeData = await Recipe.findAll({
+      where: {
+        user_id: req.session.user_id
+      }
+    });
 
-    json.hits.forEach((data) => {
+    const recipes = recipeData.map(recipe => recipe.get({ plain: true }));
+    const urls = [];
+
+    for (let i = 0; i < recipes.length; i++) {
+      urls.push(recipes[i].URL);
+    }
+
+   await json.hits.forEach((data) => {
+    if(urls.includes(data.recipe.url)) {
+      return;
+    }
       // adds recipes into recipe model
-      const newRecipe =  Recipe.create(
-        {
-          name: data.recipe.label,
-          URL: data.recipe.url,
-          image: data.recipe.image,
-          user_id: req.session.user_id
-        }
-      );
-      recipes.push(newRecipe);
-      
+        const newRecipe = Recipe.create(
+          {
+            name: data.recipe.label,
+            URL: data.recipe.url,
+            image: data.recipe.image,
+            user_id: req.session.user_id
+          }
+        );
+        recipes.push(newRecipe);
+       
     });
   } catch (err) {
     res.status(500).json(err);
