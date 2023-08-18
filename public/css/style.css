@@ -36,7 +36,7 @@ body {
 } */
 
 /* Shared styles for login and signup containers */
-.login-form {
+.login-form, .signup-form {
     background-color: rgba(255, 255, 255, 0.8);
     padding: 20px;
     border-radius: 10px;
@@ -47,22 +47,22 @@ body {
     /* background-image: none!; */
 }
 
-.login-form h1 {
+.login-form h1, .signup-form h1 {
     margin-bottom: 10px;
 }
 
-.login-form label {
+.login-form label, .signup-form label {
     display: block;
     margin-bottom: 5px;
 }
 
-.login-form input {
+.login-form input, .signup-form input {
     width: 100%;
     padding: 5px;
     margin-bottom: 10px;
 }
 
-.login-form button {
+.login-form button, .signup-form button {
     background-color: #007bff;
     color: white;
     padding: 8px 15px;
@@ -71,14 +71,14 @@ body {
     cursor: pointer;
 }
 
-.login-form button:hover {
+.login-form button:hover, .signup-form button:hover {
     background-color: #0056b3;
 }
 
 /* Hide the signup container initially */
-#signup-container {
+/* #signup-container {
     display: none;
-}
+} */
 
 /* Footer styles */
 .footer {
