@@ -38,3 +38,5 @@ document
 document
   .querySelector('.signup')
   .addEventListener('click', signUpHandler);
+
+// document.body.classList.add("page-to-hide")
