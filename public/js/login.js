@@ -44,7 +44,6 @@ document
 document
   .querySelector('.signup')
   .addEventListener('click', signUpHandler);
-
   
   document
   .addEventListener('mousedown', clearTextHandler);
