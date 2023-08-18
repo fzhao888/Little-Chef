@@ -36,7 +36,7 @@ body {
 } */
 
 /* Shared styles for login and signup containers */
-.login-form, .signup-form {
+.login-form, .signup-form, .welcome-form {
     background-color: rgba(255, 255, 255, 0.8);
     padding: 20px;
     border-radius: 10px;
