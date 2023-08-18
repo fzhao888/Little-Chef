@@ -3,7 +3,6 @@ const { Favorite, Recipe, User } = require("../../models");
 const withAuth = require("../../utils/auth");
 
 
-
 router.post("/:id", withAuth, async (req, res) => {
   try {
     const newFavorite = await Favorite.create({
