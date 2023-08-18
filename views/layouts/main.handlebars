@@ -20,8 +20,9 @@
       <nav class="navbar topbar">
         <!-- Conditionally render login or logout links -->
         {{#if logged_in}}
-        <a href="/welcome">Home</a> |
-        <a href="/recipe"> Show Recipes </a>|
+        <a href="/welcome" id="home">Home</a> |
+        <a href="/recipe"> Show Recipes </a> |
+        <a href="/favorites"> Favorites </a> |
         <button class="no-button" id="logout">Logout</button>
         {{else}}
         <a href="/login">Login</a>
