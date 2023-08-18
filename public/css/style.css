@@ -12,9 +12,9 @@ header {
 
 header h1 {
   margin: 0;
-  font-size: 36px;
+  font-size: 24px;
   font-style: italic;
-}
+} 
 
 body {
   margin-top: 5%;
@@ -26,10 +26,9 @@ body {
   background-attachment: fixed;
   background-repeat: no-repeat;
   height: auto;
-  display: flex;
-  justify-content: center;
+  display: flex;  
   align-items: center;
-  flex-direction: column;
+  justify-content: center;
 }
 
 /* Shared styles for login and signup containers */
@@ -53,22 +52,49 @@ body {
   margin: 0 auto;
   margin-top: 50px; 
   align-items:  center; 
+  flex-direction: row;
 }
 
 #input-ingredients-form{
   display: flex;
   background-color: rgba(255, 255, 255, 0.8);
-  padding: 20px;
   border-radius: 10px;
-  width: 100%;
+  padding-left: 20px;
+  padding-bottom: 20px;
+  width: 100%; 
   text-align: center;
-  margin: 0 auto;
-  margin-top: 50px; 
-  align-items:  center; 
+  margin: 0;
+  margin-top: 50px;  
+  align-items: center;  
+  flex-direction: row;
 }
 
+#input-ingredients-form h2{ 
+  text-align: center;  
+}
 
+.recipes-page{
+  margin-top: 10%;
+  display: flex;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  padding-left: 20px;
+  padding-bottom: 20px;
+  width: 100%; 
+  text-align: center; 
+  flex-direction: column;
+}
 
+#favorites-results{
+  display: flex;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  padding-left: 20px;
+  padding-bottom: 20px;
+  width: 100%; 
+  text-align: center; 
+  flex-direction: column;
+}
 
 .login-form h1, .signup-form h1 {
     margin-bottom: 10px;
@@ -115,11 +141,12 @@ body {
 }
 
 .top-bar {
-  display: flex;
-}
-
+  display: flex;   
+} 
+ 
 .recipes h3 {
   text-align: center;
+  margin-top: 5%;
   margin-bottom: 5%;
 }
 
@@ -128,5 +155,36 @@ body {
 }
 
 #login {
-  margin-top: 5%;
+  margin-top: 10%;
 } 
+
+#logout{
+  background-color:#333;
+  padding:0;
+  text-decoration: none; 
+}
+
+#logout:hover{
+  color: white;
+  text-decoration: underline;
+}
+
+#loginBtn{
+  color: white;
+  text-decoration: none;
+}
+.navbar-nav{ 
+  align-items: center; 
+}
+
+#loginBtn:hover{
+  text-decoration: underline;
+}
+ 
+#favorites-results{
+  margin-top: 10%;
+}
+
+#favorites-results h3{
+  margin-top: 5%;
+}
