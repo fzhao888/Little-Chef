@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { User, Recipe, Ingredient } = require("../../models");
+const { User, Recipe, Ingredient, RecipeIngredient } = require("../../models");
 const withAuth = require("../../utils/auth");
 const fetch = require("node-fetch");
 
@@ -11,7 +11,7 @@ router.get("/", withAuth, async (req, res) => {
 });
 
 // POST route for api/recipes
-router.post("/", withAuth, async (req, res) => {
+router.post("/", withAuth, async (req, res) => { 
   // get ingredients id using user id
   const userData = await User.findOne({
     where: {
