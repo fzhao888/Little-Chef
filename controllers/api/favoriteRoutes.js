@@ -18,17 +18,11 @@ router.post("/:id", withAuth, async (req, res) => {
 
 router.delete("/:id", withAuth, async (req, res) => {
   try {
-    const favoriteData = await Recipe.destroy({
+    const favoriteData = await Favorite.destroy({
       where: {
-        id: req.params.id,
-      },
-      include: [
-    {
-      model:User, through: Favorite, as: 'favorite_recipes'
-    }
-      ]
-    });
-
+        recipe_id: req.params.id,
+      }
+      }); 
     if (!favoriteData) {
       res.status(404).json({ message: "Favorite not found!" });
       return;
