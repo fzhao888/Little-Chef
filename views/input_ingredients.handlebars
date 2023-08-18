@@ -1,13 +1,14 @@
-<div class="row" id="input-ingredients-form"> 
+<div class="row container-fluid" id="input-ingredients-form"> 
+  <div class="status-message"></div>
   <!--Welcome message-->
   <div class="row">
     <div class="col">
-      <h2>Welcome, {{first_name}} !</h2>
+      <h2>Welcome, {{first_name}}!</h2>
     </div>
   </div>
 
   <!-- Add Ingredient Form -->
-  <div class="row mt-4">
+  <div class="row mt-4 " > 
     <div class="col-md-6">
       <h3>Enter Ingredients:</h3>
       <form class="form new-ingredients-list-form">
@@ -21,11 +22,10 @@
       </form>
     </div>
 
-    <!-- Display Ingredients and Delete Ingredient-->
-    {{#if ingredients.length}}
+    <!-- Display Ingredients and Delete Ingredient-->    
     <div class="col-md-6 ingredients-list">
       <h3>Ingredients: </h3>
-
+    {{#if ingredients.length}}
       {{#each ingredients as |ingredient|}}
       <div class="row mb-2">
         <div class="col-md-8">
