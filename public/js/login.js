@@ -26,6 +26,12 @@ const loginFormHandler = async (event) => {
   }
 };
 
+const clearTextHandler = async (event) => {
+  const status = document.querySelector('.status-message');
+  status.innerHTML = "";
+}
+
+
 // sends redirects to /capctha
 const signUpHandler =  async (event) => {
   document.location.replace('/signup');
@@ -39,4 +45,6 @@ document
   .querySelector('.signup')
   .addEventListener('click', signUpHandler);
 
-// document.body.classList.add("page-to-hide")
+  
+  document
+  .addEventListener('mousedown', clearTextHandler);
