@@ -1,3 +1,4 @@
+// callback function to render captcha
 
 function cb(token) {
     let input = document.createElement('input')

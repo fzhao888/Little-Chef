@@ -29,6 +29,7 @@ body {
   display: flex;  
   align-items: center;
   justify-content: center;
+  scrollbar-color: rebeccapurple;
 }
 
 /* Shared styles for login and signup containers */
@@ -69,11 +70,24 @@ body {
   flex-direction: row;
 }
 
+.error-page {
+  display: flex;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  padding-left: 20px;
+  padding-bottom: 20px;
+  width: 100%; 
+  text-align: center;
+  margin: 0;
+  margin-top: 50px;  
+  align-items: center;  
+}
+
 #input-ingredients-form h2{ 
   text-align: center;  
 }
 
-.recipes-page{
+.recipes-page, .history-page{
   margin-top: 10%;
   display: flex;
   background-color: rgba(255, 255, 255, 0.8);
@@ -84,6 +98,7 @@ body {
   text-align: center; 
   flex-direction: column;
 }
+ 
 
 #favorites-results{
   display: flex;
@@ -94,6 +109,10 @@ body {
   width: 100%; 
   text-align: center; 
   flex-direction: column;
+}
+
+#favorites-results button{ 
+  margin-left: 10px; 
 }
 
 .login-form h1, .signup-form h1 {
@@ -144,13 +163,15 @@ body {
   display: flex;   
 } 
  
-.recipes h3 {
+.recipes, .history h3 {
   text-align: center;
   margin-top: 5%;
   margin-bottom: 5%;
 }
+ 
 
-#topBtn {
+#topBtn, #clearBtn {
+  margin: 20px;
   align-self: center;
 }
 

@@ -29,7 +29,7 @@ Once an account is made, you can enter ingredients and view the possible recipes
 
 Here is a screenshot of the Input Ingredients page
 
-![screenshot of Input Ingredients page](public/images/remys-little-chef-64326918dfaf.herokuapp.com_input.png)
+![screenshot of Input Ingredients page](public/images/input_ingredients.png)
 
 Here is a screenshot of the Recipe Results page:
 
@@ -91,6 +91,8 @@ epinedo3
 XDSirius
 
 Sowchirukuri
+
+---
 
 ### Emails:
 

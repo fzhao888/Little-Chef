@@ -1,9 +1,9 @@
 
 const router = require("express").Router();
-const { User, Recipe, Ingredient, Favorite } = require("../models");
+const { User, Recipe, Ingredient, Favorite, History } = require("../models");
 const withAuth = require("../utils/auth");
 const Recaptcha = require('express-recaptcha').RecaptchaV3
-const recaptcha = new Recaptcha('6Lfvpa4nAAAAAJLBgZhMIK285PXaOAy54_yXgnjG', '6Lfvpa4nAAAAALnykTBhcaD5BotiB1jviKo_Jk8M', {callback:'cb'}) 
+const recaptcha = new Recaptcha('6Lfvpa4nAAAAAJLBgZhMIK285PXaOAy54_yXgnjG', '6Lfvpa4nAAAAALnykTBhcaD5BotiB1jviKo_Jk8M', { callback: 'cb' })
 
 // renders homepage
 router.get('/', async (req, res) => {
@@ -16,21 +16,20 @@ router.get('/', async (req, res) => {
   }
 });
 
+// renders favorites
 router.get("/favorites", withAuth, async (req, res) => {
-  try { 
-    const favoritesData = await User.findByPk(
-      req.session.user_id, {
-      include: [
-        {
-          model: Recipe, through: Favorite,  as: 'user_favorites'
-        },
-      ]
+  try {
+    const favoritesData = await Favorite.findAll({
+      where: {
+        user_id: req.session.user_id
+      }
     },
-    ); 
-    const favorites = favoritesData.get({ plain: true }); 
+    );
+
+    const favorites = favoritesData.map((favorite) => favorite.get({ plain: true }));
 
     res.render("favorite", {
-      favorites: favorites.user_favorites,
+      favorites: favorites,
       logged_in: req.session.logged_in,
     });
   } catch (err) {
@@ -40,9 +39,9 @@ router.get("/favorites", withAuth, async (req, res) => {
 });
 
 // renders ingredient/:id
-router.get('/ingredient/:id' , async( req,res ) => {
+router.get('/ingredient/:id', async (req, res) => {
   //renders ingredients info
-  try{
+  try {
     const ingredientData = await Ingredient.findByPk(req.params.id);
 
     const ingredient = ingredientData.get({ plain: true });
@@ -53,7 +52,7 @@ router.get('/ingredient/:id' , async( req,res ) => {
     });
 
 
-  } catch(err){
+  } catch (err) {
     res.status(500).json(err);
   }
 });
@@ -66,58 +65,87 @@ router.get('/input', withAuth, async (req, res) => {
     attributes: { exclude: ["password"] },
     include: [{ model: Ingredient }],
   });
-  
+
   const user = userData.get({ plain: true });
 
   res.render('input_ingredients', {
     ...user,
-   logged_in: true,
+    logged_in: true,
   });
 });
 
 // use withAuth middleware to prevent access to route
-router.get('/recipe', withAuth, async (req,res) => {
+router.get('/recipe', withAuth, async (req, res) => {
   const recipeData = await Recipe.findAll({
     where: {
       user_id: req.session.user_id,
     }
-  }); 
-  
+  });
+
   const recipes = recipeData.map(
-    (recipe) => recipe.get({plain:true }) );
-    
-  res.render("recipe", { 
+    (recipe) => recipe.get({ plain: true }));
+
+  res.render("recipe", {
     recipes: recipes,
     logged_in: true
   });
 });
 
+// renders history
+router.get('/history', withAuth, async (req, res) => {
+  const historyData = await History.findAll({
+    where: {
+      user_id: req.session.user_id,
+    }
+  });
+
+  // check if historyData is empty
+  // will be empty after clearing history
+  
+  if (historyData) {
+    const histories = historyData.map(
+      (history) => history.get({ plain: true }));
+
+    res.render("history", {
+      histories: histories,
+      logged_in: true
+    });
+
+  } else {
+    res.render("history", {
+      logged_in: true
+    });
+  }
+
+});
+
 // checks if logged in
-router.get('/login',  recaptcha.middleware.render, function (req, res) {
+router.get('/login', recaptcha.middleware.render, function (req, res) {
   if (req.session.logged_in) {
     res.redirect('/welcome');
     return;
   }
 
-  res.render('captcha', { captcha: res.recaptcha, path: req.path  });
+  res.render('captcha', { captcha: res.recaptcha, path: req.path });
 });
 
+// verifies RECAPTCHA for login
 router.post('/login', recaptcha.middleware.verify, function (req, res) {
   console.log(req.recaptcha);
   if (!req.recaptcha.error) {
-      // success code
-     res.render('login')
-  } else { 
-      document.location.replace('/login');
+    // success code
+    res.render('login')
+  } else {
+    document.location.replace('/error');
   }
 })
 
 // renders welcome page
-router.get('/welcome', async (req,res) => {
+router.get('/welcome', async (req, res) => {
   const userData = await User.findByPk(req.session.user_id, {
     attributes: { exclude: ["password"] }
   });
- 
+
   const user = userData.get({ plain: true });
 
   res.render('welcome', {
@@ -127,18 +155,25 @@ router.get('/welcome', async (req,res) => {
 });
 
 // renders signup  
-router.get('/signup', recaptcha.middleware.render, (req,res) => { 
-  res.render('captcha',{ captcha: res.recaptcha, path: req.path });
-}); 
+router.get('/signup', recaptcha.middleware.render, (req, res) => {
+  res.render('captcha', { captcha: res.recaptcha, path: req.path });
+});
 
+//verifies RECAPTCHA for signup
 router.post('/signup', recaptcha.middleware.verify, function (req, res) {
   console.log(req.recaptcha);
   if (!req.recaptcha.error) {
-      // success code
-     res.render('signup')
+    // success code
+    res.render('signup')
   } else {
-    document.location.replace('/signup');
+    document.location.replace('/error');
   }
 })
+
+// renders error page
+router.get('/error', (req,res) => {
+  res.render('error');
+});
+
 
 module.exports = router;

@@ -26,6 +26,7 @@ const loginFormHandler = async (event) => {
   }
 };
 
+// clears status message
 const clearTextHandler = async (event) => {
   const status = document.querySelector('.status-message');
   status.innerHTML = "";
@@ -37,6 +38,7 @@ const signUpHandler =  async (event) => {
   document.location.replace('/signup');
 }
 
+//add event listeners
 document
   .querySelector('.login-form')
   .addEventListener('submit', loginFormHandler);
