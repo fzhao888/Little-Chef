@@ -47,6 +47,7 @@ const clearButtonHandler = async(event) => {
   }
 }
 
+// event listeners for add button, go to top, clear text 
 document
   .querySelector(".histories-list")
   .addEventListener("click", addButtonHandler);
