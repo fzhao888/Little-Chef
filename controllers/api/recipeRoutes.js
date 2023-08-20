@@ -54,28 +54,27 @@ router.post("/", withAuth, async (req, res) => {
     const response = await fetch(url);
     const result = await response.text();
     const json = await JSON.parse(result);
-    const recipeData = await Recipe.findAll({
+
+    // finds all history with user id
+    const historyData = await History.findAll({
       where: {
         user_id: req.session.user_id
       }
     });
 
-    const recipes = recipeData.map(recipe => recipe.get({ plain: true }));
+    const histories = historyData.map(history => history.get({ plain: true }));
+
+    // creates urls and populates using recipes.URL
     const urls = [];
 
-    for (let i = 0; i < recipes.length; i++) {
-      urls.push(recipes[i].URL);
+    for (let i = 0; i < histories.length; i++) {
+      urls.push(histories[i].URL);
     }
 
+    // adds recipes into recipe model then saves it into history model
     await json.hits.forEach((data) => {
-      // deletes dupes
+      // deletes history dupes
       if (urls.includes(data.recipe.url)) {
-        Recipe.destroy({
-          where: {
-            URL: data.recipe.url
-          }
-        });
-
         History.destroy({
           where: {
             URL: data.recipe.url
@@ -83,7 +82,6 @@ router.post("/", withAuth, async (req, res) => {
         });
       }// end of deleting dupes
 
-      // adds recipes into recipe model
       const newRecipe = Recipe.create(
         {
           name: data.recipe.label,
