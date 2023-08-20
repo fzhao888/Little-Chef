@@ -1,3 +1,4 @@
+// Adds ingredient to form
 const newFormHandler = async (event) => {
   event.preventDefault();
 
@@ -12,8 +13,10 @@ const newFormHandler = async (event) => {
       },
     });
     if (response.ok) { 
+      // refresh if successful
       document.location.replace("/input"); 
     } else {
+      // displays status message if not successful => ingredient already exists
       const status = document.querySelector('.status-message');
       status.style.color = 'red';
       status.innerHTML = 'Ingredient already added!';
@@ -21,6 +24,7 @@ const newFormHandler = async (event) => {
   }
 };
 
+// delete ingredient from form
 const delButtonHandler = async (event) => { 
   if (event.target.hasAttribute("data-id")) {
     const id = event.target.getAttribute("data-id");
@@ -29,8 +33,10 @@ const delButtonHandler = async (event) => {
     });
 
     if (response.ok) {
+        // refresh if successful
       document.location.replace("/input");
     } else {
+      // displays status message if not successful => ingredient already exists
       const status = document.querySelector('.status-message');
       status.style.color = 'red';
       status.innerHTML = 'Failed to delete ingredient.'
@@ -38,6 +44,7 @@ const delButtonHandler = async (event) => {
   }
 };
 
+// find new recipe button
 const findRecipesHandler = async (event) => { 
   const response = await fetch(`/api/recipes`, {
     method: "POST", 
@@ -55,6 +62,7 @@ const findRecipesHandler = async (event) => {
   }
 };
 
+// event listeners for add ingredient, delete ingredient, and find new recipes button
 document
   .querySelector(".new-ingredients-list-form")
   .addEventListener("submit", newFormHandler);

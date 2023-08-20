@@ -5,6 +5,7 @@ const recipeRoutes = require('./recipeRoutes');
 const favoriteRoutes = require('./favoriteRoutes'); 
 const historyRoutes = require('./historyRoutes');
 
+// setups up api routes
 router.use('/users', userRoutes);
 router.use('/ingredients',ingredientRoutes);
 router.use('/recipes',recipeRoutes);

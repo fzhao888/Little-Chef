@@ -4,6 +4,7 @@ const withAuth = require("../../utils/auth");
 const fetch = require("node-fetch");
 
 //  GET  api/recipes
+// renders recipe
 router.get("/", withAuth, async (req, res) => {
   res.render("recipe", {
     logged_in: req.session.logged_in,
@@ -11,6 +12,7 @@ router.get("/", withAuth, async (req, res) => {
 });
 
 // POST route for api/recipes
+// adds recipe to Recipe and History models
 router.post("/", withAuth, async (req, res) => {
   // clear recipes 
   await Recipe.sync({ force: true });
@@ -66,6 +68,7 @@ router.post("/", withAuth, async (req, res) => {
     }
 
     await json.hits.forEach((data) => {
+      // deletes dupes
       if (urls.includes(data.recipe.url)) {
         Recipe.destroy({
           where: {
@@ -78,7 +81,8 @@ router.post("/", withAuth, async (req, res) => {
             URL: data.recipe.url
           }
         });
-      }
+      }// end of deleting dupes
+
       // adds recipes into recipe model
       const newRecipe = Recipe.create(
         {
@@ -89,6 +93,7 @@ router.post("/", withAuth, async (req, res) => {
         }
       );
 
+      //adds history to history model
       const newHistory = History.create(
         {
           name: data.recipe.label,
@@ -98,8 +103,8 @@ router.post("/", withAuth, async (req, res) => {
         }
       );
 
+      // returns new recipes
       recipes.push(newRecipe);
-
     });
 
   } catch (err) {

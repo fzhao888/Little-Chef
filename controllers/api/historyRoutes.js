@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { History } = require('../../models');
 const withAuth = require("../../utils/auth");
 
+// clears history
 router.delete('/', withAuth, async (req, res) => {
     try {
         const historyData = await History.destroy({

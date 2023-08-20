@@ -16,6 +16,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+// renders favorites
 router.get("/favorites", withAuth, async (req, res) => {
   try {
     const favoritesData = await Favorite.findAll({
@@ -90,6 +91,7 @@ router.get('/recipe', withAuth, async (req, res) => {
   });
 });
 
+// renders history
 router.get('/history', withAuth, async (req, res) => {
   const historyData = await History.findAll({
     where: {
