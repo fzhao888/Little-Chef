@@ -47,7 +47,7 @@ const clearButtonHandler = async(event) => {
   }
 }
 
-// event listeners for add button, go to top, clear text, and c 
+// event listeners for add button, go to top, clear text, and clear history
 document
   .querySelector(".histories-list")
   .addEventListener("click", addButtonHandler);
