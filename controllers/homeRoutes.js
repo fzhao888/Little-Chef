@@ -136,7 +136,7 @@ router.post('/login', recaptcha.middleware.verify, function (req, res) {
     // success code
     res.render('login')
   } else {
-    document.location.replace('/login');
+    document.location.replace('/error');
   }
 })
 
@@ -166,9 +166,14 @@ router.post('/signup', recaptcha.middleware.verify, function (req, res) {
     // success code
     res.render('signup')
   } else {
-    document.location.replace('/signup');
+    document.location.replace('/error');
   }
 })
+
+// renders error page
+router.get('/error', (req,res) => {
+  res.render('error');
+});
 
 
 module.exports = router;
