@@ -3,7 +3,7 @@ const addButtonHandler = async (event) => {
   if (event.target.hasAttribute("data-id")) {
     const id = event.target.getAttribute("data-id");
 
-    const response = await fetch(`/api/favorites/${id}`, {
+    const response = await fetch(`/api/favorites/history/${id}`, {
       method: "POST",
       body: JSON.stringify({ id }),
       headers: {
@@ -18,7 +18,7 @@ const addButtonHandler = async (event) => {
       status.innerHTML = "Added to favorites!";
      
     } else {
-      // display to dom or modal
+      // display to dom 
       status.style.color = 'red';
       status.innerHTML = "Already added to favorites!";  
     }
@@ -31,15 +31,24 @@ const topButtonHandler = async (event) => {
   document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }
 
-// clear status message
+// clears status message
 const clearTextHandler = async (event) => {
   const status = document.querySelector('.status-message');
   status.innerHTML = "";
 }
 
-// event listeners for add button, go to top, clear text 
+const clearButtonHandler = async(event) => {
+  const response = await fetch(`api/history`, {
+    method: 'DELETE',
+  });
+ 
+  if(response.ok){
+    document.location.replace('/history');
+  }
+}
+
 document
-  .querySelector(".recipes-list")
+  .querySelector(".histories-list")
   .addEventListener("click", addButtonHandler);
 
 document
@@ -47,5 +56,8 @@ document
   .addEventListener("click", topButtonHandler);
 
   document
-  .addEventListener('mousedown', clearTextHandler);
+  .querySelector("#clearBtn")
+  .addEventListener("click", clearButtonHandler);
 
+  document
+  .addEventListener('mousedown', clearTextHandler);

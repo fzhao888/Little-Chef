@@ -1,13 +1,22 @@
 const router = require("express").Router();
-const { Favorite, Recipe, User } = require("../../models");
+const { Favorite, Recipe, History } = require("../../models");
 const withAuth = require("../../utils/auth");
 
-
 router.post("/:id", withAuth, async (req, res) => {
-  try {
+  try { 
+    const recipeData = await Recipe.findOne({
+      where: {
+        id: req.params.id
+      }
+    })
+
+    const recipe = recipeData.get({ plain:true }); 
+
     const newFavorite = await Favorite.create({
       user_id: req.session.user_id,
-      recipe_id: req.params.id,
+      URL: recipe.URL,
+      name: recipe.name,
+      image: recipe.image
     });
     
     res.status(200).json(newFavorite);
@@ -20,7 +29,7 @@ router.delete("/:id", withAuth, async (req, res) => {
   try {
     const favoriteData = await Favorite.destroy({
       where: {
-        recipe_id: req.params.id,
+        id: req.params.id,
       }
       }); 
     if (!favoriteData) {
@@ -28,8 +37,26 @@ router.delete("/:id", withAuth, async (req, res) => {
       return;
     }
     res.status(200).json(favoriteData);
+  } catch (err) { 
+    res.status(500).json(err);
+  }
+});
+
+// add to favorites by id from history page
+router.post('/history/:id', withAuth, async (req,res) => {
+  try { 
+    const historyData = await History.findByPk(req.params.id);
+    const history = historyData.get({ plain:true }); 
+
+    const newFavorite = await Favorite.create({
+      user_id: req.session.user_id,
+      URL: history.URL,
+      name: history.name,
+      image: history.image
+    });
+    
+    res.status(200).json(newFavorite);
   } catch (err) {
-    console.log(err)
     res.status(500).json(err);
   }
 });

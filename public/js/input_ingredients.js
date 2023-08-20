@@ -16,7 +16,7 @@ const newFormHandler = async (event) => {
     } else {
       const status = document.querySelector('.status-message');
       status.style.color = 'red';
-      status.innerHTML = 'Failed to add ingredient.'
+      status.innerHTML = 'Ingredient already added!';
     }
   }
 };

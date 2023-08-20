@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { User, Recipe, Ingredient, RecipeIngredient } = require("../../models");
+const { User, Recipe, Ingredient, History } = require("../../models");
 const withAuth = require("../../utils/auth");
 const fetch = require("node-fetch");
 
@@ -11,7 +11,10 @@ router.get("/", withAuth, async (req, res) => {
 });
 
 // POST route for api/recipes
-router.post("/", withAuth, async (req, res) => { 
+router.post("/", withAuth, async (req, res) => {
+  // clear recipes 
+  await Recipe.sync({ force: true });
+
   // get ingredients id using user id
   const userData = await User.findOne({
     where: {
@@ -38,7 +41,7 @@ router.post("/", withAuth, async (req, res) => {
 
   const appID = 'dd1ea4e2';
   const appKey = '5a310e71d76223de342321873bdac305';
-  
+
   const url = `https://api.edamam.com/api/recipes/v2?type=public&q=${ingredients}&app_id=${appID}&app_key=%20${appKey}`;
 
   // stores recipe label, recipe image, and recipe url
@@ -62,26 +65,43 @@ router.post("/", withAuth, async (req, res) => {
       urls.push(recipes[i].URL);
     }
 
-   await json.hits.forEach((data) => {
-    if(urls.includes(data.recipe.url)) {
-       Recipe.destroy({
-        where: {
-          URL: data.recipe.url
-        }
-      });
-    }
-      // adds recipes into recipe model
-        const newRecipe = Recipe.create(
-          {
-            name: data.recipe.label,
-            URL: data.recipe.url,
-            image: data.recipe.image,
-            user_id: req.session.user_id
+    await json.hits.forEach((data) => {
+      if (urls.includes(data.recipe.url)) {
+        Recipe.destroy({
+          where: {
+            URL: data.recipe.url
           }
-        );
-        recipes.push(newRecipe);
-       
+        });
+
+        History.destroy({
+          where: {
+            URL: data.recipe.url
+          }
+        });
+      }
+      // adds recipes into recipe model
+      const newRecipe = Recipe.create(
+        {
+          name: data.recipe.label,
+          URL: data.recipe.url,
+          image: data.recipe.image,
+          user_id: req.session.user_id
+        }
+      );
+
+      const newHistory = History.create(
+        {
+          name: data.recipe.label,
+          URL: data.recipe.url,
+          image: data.recipe.image,
+          user_id: req.session.user_id
+        }
+      );
+
+      recipes.push(newRecipe);
+
     });
+
   } catch (err) {
     res.status(500).json(err);
   }
