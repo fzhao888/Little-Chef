@@ -6,10 +6,19 @@ const withAuth = require("../../utils/auth");
 // adds ingredient then returns it as JSON
 router.post("/", withAuth, async (req, res) => {
   try {
-    const newIngredient = await Ingredient.create({
-      ...req.body,
-      user_id: req.session.user_id,
+
+    const ingredientData = await Ingredient.findOne({
+      where: { name: req.body.name },
     });
+ 
+    if (!ingredientData) {
+
+      const newIngredient = await Ingredient.create({
+        ...req.body,
+        user_id: req.session.user_id,
+      });
+
+    }
 
     const newIngredientId = await Ingredient.findOne({
       where: { name: req.body.name },
@@ -19,7 +28,7 @@ router.post("/", withAuth, async (req, res) => {
       user_id: req.session.user_id,
       ingredient_id: newIngredientId.id,
     });
-    res.status(200).json(newIngredient);
+    res.status(200).json({message: "Added ingredient successfully!"});
   } catch (err) {
     res.status(400).json(err);
   }
