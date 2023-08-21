@@ -58,7 +58,7 @@ const findRecipesHandler = async (event) => {
   } else {
     const status = document.querySelector('.status-message');
     status.style.color = 'red';
-    status.innerHTML = "Failed to find recipe";
+    status.innerHTML = "Ingredient list is empty!";
   }
 };
 
