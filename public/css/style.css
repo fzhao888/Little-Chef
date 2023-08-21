@@ -12,27 +12,27 @@ header {
 
 header h1 {
   margin: 0;
-  font-size: 36px;
+  font-size: 24px;
   font-style: italic;
-}
+} 
+
 body {
   margin-top: 5%;
   padding: 0;
-  font-family: Arial, sans-serif;
-  background-image: url(../images/pxfuel.jpg);
+  font-family: Arial, sans-serif;  
   background-size: cover;
   background-position: center;
+  background-image: url('../images/pxfuel.jpg');
   background-attachment: fixed;
   background-repeat: no-repeat;
   height: auto;
-  display: flex;
-  justify-content: center;
+  display: flex;  
   align-items: center;
-  flex-direction: column;
+  justify-content: center;
 }
 
 /* Shared styles for login and signup containers */
-.login-form, .signup-form{
+.login-form, .signup-form {
     background-color: rgba(255, 255, 255, 0.8);
     padding: 20px;
     border-radius: 10px;
@@ -41,17 +41,6 @@ body {
     margin: 0 auto;
     margin-top: 50px; 
     /* background-image: none!; */
-}
-
-#welcome-form{
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 20px;
-  border-radius: 10px;
-  width: 100%;
-  text-align: center;
-  margin: 0 auto;
-  margin-top: 50px; 
-
 }
 
 .login-form h1, .signup-form h1 {
@@ -82,10 +71,6 @@ body {
     background-color: #0056b3;
 }
 
-/* Hide the signup container initially */
-/* #signup-container {
-    display: none;
-} */
 /* Footer styles */
 .footer {
   margin-top: 20px;
@@ -103,11 +88,12 @@ body {
 }
 
 .top-bar {
-  display: flex;
-}
-
+  display: flex;   
+} 
+ 
 .recipes h3 {
   text-align: center;
+  margin-top: 5%;
   margin-bottom: 5%;
 }
 
@@ -116,5 +102,36 @@ body {
 }
 
 #login {
-  margin-top: 5%;
+  margin-top: 10%;
 } 
+
+#logout{
+  background-color:#333;
+  padding:0;
+  text-decoration: none; 
+}
+
+#logout:hover{
+  color: white;
+  text-decoration: underline;
+}
+
+#loginBtn{
+  color: white;
+  text-decoration: none;
+}
+.navbar-nav{ 
+  align-items: center; 
+}
+
+#loginBtn:hover{
+  text-decoration: underline;
+}
+ 
+#favorites-results{
+  margin-top: 10%;
+}
+
+#favorites-results h3{
+  margin-top: 5%;
+}
