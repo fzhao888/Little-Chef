@@ -1,7 +1,7 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
 
-class Ingredient extends Model {}
+class Ingredient extends Model { }
 
 /**
  * Schema for Ingredient Table
@@ -11,7 +11,7 @@ class Ingredient extends Model {}
  * unit -  string
  *
  */
- 
+
 Ingredient.init(
   {
     id: {
@@ -22,10 +22,15 @@ Ingredient.init(
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
+      allowNull: false
     },
-    
+    user_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'user',
+        key: 'id'
+      }
+    }
   },
   {
     sequelize,
