@@ -1,6 +1,7 @@
+// signs user up
 const signupFormHandler = async (event) => {
   event.preventDefault();
-
+  // retrieve user input 
   const first_name = document.querySelector('#first_name').value.trim();
   const last_name = document.querySelector('#last_name').value.trim();
   const username = document.querySelector('#username').value.trim();
@@ -8,7 +9,9 @@ const signupFormHandler = async (event) => {
   const password = document.querySelector('#password').value.trim();
   const status = document.querySelector('.status-message');
 
+  // input validation:
   if (first_name && last_name && username && email && password) {
+    // checks if password length > 8
     if (password.length < 8) {
       status.style.color = 'red';
       status.innerHTML = "Password must be at least 8 characters long!";
@@ -22,9 +25,11 @@ const signupFormHandler = async (event) => {
     });
 
     if (response.ok) {
+      // logs user in if successful
       document.location.replace('/welcome');
     }
     else {
+      // displays error message if username already exists
       status.style.color = 'red';
       status.innerHTML = "Username already exists!";
       return;
@@ -32,12 +37,13 @@ const signupFormHandler = async (event) => {
   } 
 };
 
-
+// clears status message
 const clearTextHandler = async (event) => {
   const status = document.querySelector('.status-message');
   status.innerHTML = "";
 }
 
+// adds event listeners
 document
   .querySelector('.signup-form')
   .addEventListener('submit', signupFormHandler);

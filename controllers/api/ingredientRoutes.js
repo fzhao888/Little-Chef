@@ -1,8 +1,9 @@
 const router = require("express").Router();
 const { Ingredient, UserIngredient } = require("../../models");
-const withAuth = require("../../utils/auth"); 
+const withAuth = require("../../utils/auth");
 
 // POST for ingredients using withAuth middleware
+// adds ingredient then returns it as JSON
 router.post("/", withAuth, async (req, res) => {
   try {
     const newIngredient = await Ingredient.create({
@@ -25,18 +26,18 @@ router.post("/", withAuth, async (req, res) => {
 });
 
 // DELETE for ingredients using withAuth middleware
-
+// deletes ingredient 
 router.delete('/:id', withAuth, async (req, res) => {
-  try { 
+  try {
     const ingredientData = await Ingredient.destroy({
       where: {
         id: req.params.id,
       },
     });
 
-    if(!ingredientData){
-        res.status(404).json({message: 'Ingredient not found!'});
-        return;
+    if (!ingredientData) {
+      res.status(404).json({ message: 'Ingredient not found!' });
+      return;
     }
 
     res.status(200).json(ingredientData);

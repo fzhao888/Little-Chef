@@ -1,0 +1,31 @@
+<div class="history-page">
+    <div class="status-message"></div>
+    <div class="history">
+        <!--Display histories history -->
+        <div class="col-auto">
+            <h3>History:</h3>
+        </div>
+        <!-- return to top button-->
+        {{#if histories.length}}
+        <div class="col-mb-6 histories-list">
+            {{#each histories as |history|}}
+            <div class="row mb-2">
+                <div class="col-md-8">
+                    <img src={{history.image}} alt="image of recipe" width="200" height="200" />
+                    <h4><a href={{history.URL}}>{{history.name}}</a></h4>
+                </div>
+                <div class="col-md-4">
+                    <button class="btn btn-sm btn-primary" data-id="{{history.id}}">
+                        Add to Favorites
+                    </button>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+        {{/if}}
+    </div>
+    <button class="btn btn-sm btn-info" id="topBtn">Go to top</button>
+    <button class="btn btn-sm btn-info" id="clearBtn">Clear History</button>
+</div>
+
+<script src="./js/history.js"></script>
