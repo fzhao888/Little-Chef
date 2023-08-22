@@ -103,3 +103,5 @@ Frank Zhao: frank.zhao93@gmail.com
 Enrique Pinedo: epinedo31@outlook.com
 
 Yasmin Castillo: yasmin_c@outlook.com
+
+Sri Mallipudi: lakshmisowmya.chirukuri@gmail.com
