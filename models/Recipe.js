@@ -23,7 +23,6 @@ Recipe.init(
     },
     URL: {
       type: DataTypes.STRING(500),
-      unique:true,
       validate: {
         isUrl: true
       }

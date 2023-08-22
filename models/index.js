@@ -7,11 +7,11 @@ const History = require('./History');
 // User and Favorite have one to many relationship
 User.hasMany(Favorite, {
     foreign_key: 'user_id',
-    onDelete: 'CASCADE'
+    onDelete: 'CASCADE', 
 });
 
 Favorite.belongsTo(User, {
-    foreign_key: 'user_id',
+    foreign_key: 'user_id', 
 });
  
 

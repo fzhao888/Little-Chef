@@ -13,6 +13,18 @@ router.post("/:id", withAuth, async (req, res) => {
 
     const recipe = recipeData.get({ plain:true }); 
 
+    // handles fav dupes:
+    const favData = await Favorite.findOne({
+      where: { 
+        URL: recipe.URL,
+        user_id: req.session.user_id
+      }
+    })
+
+    if(favData){
+      return res.status(500).json({message: "Favorite already added!"});
+    }
+
     const newFavorite = await Favorite.create({
       user_id: req.session.user_id,
       URL: recipe.URL,

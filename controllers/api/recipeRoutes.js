@@ -31,6 +31,11 @@ router.post("/", withAuth, async (req, res) => {
 
   const userIngredient = userData.get({ plain: true });
   const ingredientJSON = userIngredient.ingredients;
+  console.log(ingredientJSON);
+
+  if(ingredientJSON.length === 0){
+    return res.status(500).json({message: 'No ingredients!'});
+  }
 
   // gets ingredients name
   let ingredients = "";
